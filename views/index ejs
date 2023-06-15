@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sports Live Stream</title>
+  <meta property="og:title" content="Sports Live Stream" />
+  <meta property="og:description" content="Watch live sports streams and catch up on the latest matches and events." />
+  <meta property="og:image" content="your-website-logo.png" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div id="postsContainer"></div>
+
+  <script>
+    $(document).ready(function() {
+      // Fetch the list of posts
+      $.ajax({
+        url: '/posts',
+        method: 'GET',
+        success: function(posts) {
+          // Iterate over the posts and display them on the page
+          posts.forEach(function(post) {
+            var postLink = '<a href="' + post.url + '">' + post.title + '</a>';
+            var postThumbnail = '<img src="' + post.thumbnail + '" alt="' + post.title + '">';
+            var postDescription = '<p>' + post.description + '</p>';
+            var postContent = '<div>' + postThumbnail + '<h2>' + postLink + '</h2>' + postDescription + '</div>';
+            $('#postsContainer').append(postContent);
+
+            // Update Open Graph metadata for each post
+            var ogTitle = post.title + ' - Sports Live Stream';
+            var ogDescription = post.description;
+            var ogImage = post.thumbnail;
+            $('head meta[property="og:title"]').attr('content', ogTitle);
+            $('head meta[property="og:description"]').attr('content', ogDescription);
+            $('head meta[property="og:image"]').attr('content', ogImage);
+          });
+        },
+        error: function() {
+          $('#postsContainer').append('<div>Error loading posts.</div>');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
