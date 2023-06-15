@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const marked = require('marked');
+const path = require('path');
 
 const app = express();
 const port = 3000;
