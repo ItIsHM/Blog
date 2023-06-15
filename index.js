@@ -4,6 +4,7 @@ const marked = require('marked');
 
 const app = express();
 const port = 3000;
+const postsDirectory = path.join(process.cwd(), 'posts');
 
 app.use(express.static('public'));
 
